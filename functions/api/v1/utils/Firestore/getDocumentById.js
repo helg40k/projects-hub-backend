@@ -1,4 +1,4 @@
-import getFirestore from './getFirestore';
+import getFirestore from './getFirestore.js';
 
 /**
  * this method will fetch document data from firebase by provided id

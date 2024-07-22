@@ -1,4 +1,4 @@
-import getFirestore from './getFirestore';
+import getFirestore from './getFirestore.js';
 
 /**
  * this method will delete document by provided id and collectionPath

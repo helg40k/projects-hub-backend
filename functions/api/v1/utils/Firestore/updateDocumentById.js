@@ -1,7 +1,7 @@
 import admin from 'firebase-admin';
-import getFirestore from './getFirestore';
+import getFirestore from './getFirestore.js';
 
-const UPDATED_BY_CONSTANT = 'ON_SK_BACKEND';
+const UPDATED_BY_CONSTANT = 'BACKEND';
 
 /**
  * this method will update document in the firebase database by provided id

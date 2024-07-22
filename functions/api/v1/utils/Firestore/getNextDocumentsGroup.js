@@ -1,4 +1,4 @@
-import getFirestore from './getFirestore';
+import getFirestore from './getFirestore.js';
 
 /**
  * This method will return documents from a collection divided by groups

@@ -1,4 +1,5 @@
 /* global jest, beforeEach, describe, test, fail, expect */
+// import {jest, beforeEach, describe, test, expect} from '@jest/globals';
 
 // =============== mocks configuration ===============
 
@@ -10,6 +11,7 @@ beforeEach(() => {
 
 // ===================================================
 
+// import validate from '../../../api/v1/utils/validate';
 const validate = require('../../../api/v1/utils/validate');
 
 describe('validate', () => {

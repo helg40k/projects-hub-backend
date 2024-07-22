@@ -1,5 +1,5 @@
-import getFirestore from './getFirestore';
-import getDocumentCreationBase from './getDocumentCreationBase';
+import getFirestore from './getFirestore.js';
+import getDocumentCreationBase from './getDocumentCreationBase.js';
 
 /**
  * this method will create document in the firebase database with provided data with id if specified

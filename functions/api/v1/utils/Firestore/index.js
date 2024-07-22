@@ -1,17 +1,17 @@
-import createDocument from './createDocument';
-import deleteCollection from './deleteCollection';
-import deleteDocumentById from './deleteDocumentById';
-import getCollectionReference from './getCollectionReference';
-import getDocumentById from './getDocumentById';
-import getDocumentsByIds from './getDocumentsByIds';
-import getDocumentsFromCollection from './getDocumentsFromCollection';
-import getDocumentsWithWhereClauses from './getDocumentsWithWhereClauses';
-import getDocumentsWithComplexClauses from './getDocumentsWithComplexClauses';
-import getDocumentCreationBase from './getDocumentCreationBase';
-import getNextDocumentsGroup from './getNextDocumentsGroup';
-import getDocumentReference from './getDocumentReference';
-import getFirestore from'./getFirestore';
-import updateDocumentById from './updateDocumentById';
+import createDocument from './createDocument.js';
+import deleteCollection from './deleteCollection.js';
+import deleteDocumentById from './deleteDocumentById.js';
+import getCollectionReference from './getCollectionReference.js';
+import getDocumentById from './getDocumentById.js';
+import getDocumentsByIds from './getDocumentsByIds.js';
+import getDocumentsFromCollection from './getDocumentsFromCollection.js';
+import getDocumentsWithWhereClauses from './getDocumentsWithWhereClauses.js';
+import getDocumentsWithComplexClauses from './getDocumentsWithComplexClauses.js';
+import getDocumentCreationBase from './getDocumentCreationBase.js';
+import getNextDocumentsGroup from './getNextDocumentsGroup.js';
+import getDocumentReference from './getDocumentReference.js';
+import getFirestore from'./getFirestore.js';
+import updateDocumentById from './updateDocumentById.js';
 
 export default {
   createDocument,

@@ -1,3 +1,3 @@
-import handlers from './handlers';
+import handlers from './handlers/index.js';
 
 export default handlers;

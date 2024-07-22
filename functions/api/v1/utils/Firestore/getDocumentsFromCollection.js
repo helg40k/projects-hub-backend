@@ -1,4 +1,4 @@
-import getFirestore from './getFirestore';
+import getFirestore from './getFirestore.js';
 
 /**
  * this method will fetch all document data from a firebase table (collection)

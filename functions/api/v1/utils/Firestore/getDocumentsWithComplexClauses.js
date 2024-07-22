@@ -1,4 +1,4 @@
-import getFirestore from './getFirestore';
+import getFirestore from './getFirestore.js';
 
 /**
  * Given a collection reference and a where and a orderBy clauses array, return data from database

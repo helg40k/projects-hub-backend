@@ -1,5 +1,5 @@
-import functions from 'firebase-functions';
-import admin from 'firebase-admin';
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
 
 // extracting of firebase config variables (environment variables)
 const firebaseConfig = functions.config();
@@ -28,4 +28,4 @@ class FirebaseApp {
 
 const defaultProdApp = new FirebaseApp().getFirebaseAppInstance();
 
-export default defaultProdApp;
+module.exports = defaultProdApp;

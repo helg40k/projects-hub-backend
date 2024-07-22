@@ -1,4 +1,4 @@
-import getFirestore from './getFirestore';
+import getFirestore from './getFirestore.js';
 
 const deleteQueryBatch = async (db, query, resolve) => {
   const snapshot = await query.get();

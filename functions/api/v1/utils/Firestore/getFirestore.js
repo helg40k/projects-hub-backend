@@ -1,4 +1,4 @@
-import foiBackendAppProd from '../../apps/backend-app';
+import foiBackendAppProd from '../../apps/backend-app.cjs';
 
 /**
  * returns firestore object; otherwise throws an error

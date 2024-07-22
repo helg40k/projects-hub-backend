@@ -1,4 +1,4 @@
-import getDocumentById from './getDocumentById';
+import getDocumentById from './getDocumentById.js';
 
 /**
  * Given a collection reference and a document ids, return data from database
