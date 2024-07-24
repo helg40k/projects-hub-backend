@@ -1,4 +1,5 @@
 export const COLLECTIONS = {
   PROJECTS: 'projects',
-  EMPLOYEES: 'employees'
+  EMPLOYEES: 'employees',
+  TEAMS: 'teams'
 };

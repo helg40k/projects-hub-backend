@@ -1,5 +1,6 @@
 /* global jest, beforeEach, describe, test, fail, expect */
 // import {jest, beforeEach, describe, test, expect} from '@jest/globals';
+const { beforeEach, describe, test, expect } = require('@jest/globals');
 
 // =============== mocks configuration ===============
 
