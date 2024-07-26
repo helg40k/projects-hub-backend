@@ -1,9 +1,11 @@
+import { RESTRICTED_SYMBOLS } from '../../../../constants/restrictedSymbols.js';
+
 const getFieldContent = (valueName, source) => {
   if (!valueName || !source) {
     return null;
   }
   if (!valueName.includes('.')) {
-    return source[valueName] || null;
+    return convertResultToObject(source[valueName]);
   }
 
   const names = valueName.split('.');
@@ -26,7 +28,29 @@ const getFieldContent = (valueName, source) => {
       result = value;
     }
   });
-  return result || null;
+  return convertResultToObject(result);
+};
+
+const convertResultToObject = (dataToConvert) => {
+  if (!dataToConvert) {
+    return null;
+  }
+  if (Array.isArray(dataToConvert) && dataToConvert.length > 0) {
+    if (!dataToConvert.find((item) => (typeof item !== 'string' && typeof item !== 'number') || containRestrictedSymbols(item))) {
+      const result = {};
+      dataToConvert.forEach((item) => result[item] = null);
+      return result;
+    }
+  }
+  return dataToConvert;
+};
+
+const containRestrictedSymbols = (item) => {
+  if (typeof item !== 'string') {
+    return false;
+  }
+
+  return undefined !== RESTRICTED_SYMBOLS.find((char) => item.includes(char));
 };
 
 export default getFieldContent;

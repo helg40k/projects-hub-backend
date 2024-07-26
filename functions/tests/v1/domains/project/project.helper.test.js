@@ -61,12 +61,28 @@ describe('getFieldContent', () => {
     });
   });
 
-  test('getFieldContent: simple case with array', () => {
+  test('getFieldContent: simple case with array 1', () => {
     const source = {
       test_name: [ 'Hello!', 1, true ]
     };
     const result = getFieldContent('test_name', source);
     expect(result).toEqual([ 'Hello!', 1, true ]);
+  });
+
+  test('getFieldContent: simple case with array 2', () => {
+    const source = {
+      test_name: [ 'Hello!', 1 ]
+    };
+    const result = getFieldContent('test_name', source);
+    expect(result).toEqual([ 'Hello!', 1 ]);
+  });
+
+  test('getFieldContent: simple case with array 3', () => {
+    const source = {
+      test_name: [ 'Hello', 1 ]
+    };
+    const result = getFieldContent('test_name', source);
+    expect(result).toEqual({ 'Hello': null, '1': null });
   });
 
   test('getFieldContent: object case 1', () => {
@@ -138,17 +154,17 @@ describe('getFieldContent', () => {
         users: [
           {
             id: 102,
-            test2: 'Hello!'
+            test2: 'Hello'
           },
           {
             id: 103,
-            test2: 'Bye!'
+            test2: 'Bye'
           }
         ]
       }
     };
     const result = getFieldContent('test_name.users.test2', source);
-    expect(result).toEqual([ 'Hello!', 'Bye!' ]);
+    expect(result).toEqual({ Hello: null, Bye: null });
   });
 
   test('getFieldContent: array case with inner objects 1', () => {
@@ -158,13 +174,13 @@ describe('getFieldContent', () => {
           {
             id: 102,
             test2: {
-              say: 'Hello!'
+              say: 'Hello'
             }
           },
           {
             id: 103,
             test2: {
-              say: 'Bye!',
+              say: 'Bye',
               something: 'more'
             }
           }
@@ -172,10 +188,54 @@ describe('getFieldContent', () => {
       }
     };
     const result = getFieldContent('test_name.users.test2.say', source);
-    expect(result).toEqual([ 'Hello!', 'Bye!' ]);
+    expect(result).toEqual({ Hello: null, Bye: null });
   });
 
   test('getFieldContent: array case with inner objects 2', () => {
+    const source = {
+      users: [
+        {
+          id: 102,
+          test2: {
+            say: 'Hello'
+          }
+        },
+        {
+          id: 103,
+          test2: {
+            say: 'Bye',
+            something: 'more'
+          }
+        }
+      ]
+    };
+    const result = getFieldContent('users.test2.say', source);
+    expect(result).toEqual({ Hello: null, Bye: null });
+  });
+
+  test('getFieldContent: array case with inner objects 3', () => {
+    const source = {
+      users: [
+        {
+          id: 102,
+          test2: {
+            quant: 22
+          }
+        },
+        {
+          id: 103,
+          test2: {
+            quant: 23,
+            something: 'more'
+          }
+        }
+      ]
+    };
+    const result = getFieldContent('users.test2.quant', source);
+    expect(result).toEqual({ 22: null, 23: null });
+  });
+
+  test('getFieldContent: array case with inner objects 4', () => {
     const source = {
       users: [
         {
@@ -187,14 +247,14 @@ describe('getFieldContent', () => {
         {
           id: 103,
           test2: {
-            say: 'Bye!',
+            say: 'Bye',
             something: 'more'
           }
         }
       ]
     };
     const result = getFieldContent('users.test2.say', source);
-    expect(result).toEqual([ 'Hello!', 'Bye!' ]);
+    expect(result).toEqual([ 'Hello!', 'Bye' ]);
   });
 
   test('getFieldContent: complex array case with inner arrays', () => {
@@ -207,11 +267,11 @@ describe('getFieldContent', () => {
               users: [
                 {
                   id: 104,
-                  test3: 'Halt!'
+                  test3: 'Halt'
                 },
                 {
                   id: 105,
-                  test3: 'Go!'
+                  test3: 'Go'
                 }
               ]
             }
@@ -222,11 +282,11 @@ describe('getFieldContent', () => {
               users: [
                 {
                   id: 106,
-                  test3: 'Freeze!'
+                  test3: 'Freeze'
                 },
                 {
                   id: 107,
-                  test3: 'Pron!'
+                  test3: 'Pron'
                 }
               ]
             }
@@ -235,7 +295,7 @@ describe('getFieldContent', () => {
       }
     };
     const result = getFieldContent('test_name.users.test2.users.test3', source);
-    expect(result).toEqual([ ['Halt!', 'Go!'], ['Freeze!', 'Pron!'] ]);
+    expect(result).toEqual([ { Halt: null, Go: null }, { Freeze: null, Pron: null } ]);
   });
 
   test('getFieldContent: empty array case', () => {

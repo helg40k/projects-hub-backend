@@ -9,7 +9,6 @@ const saveData = (collectionName, source, fields) => {
   validate(saveDataSchema, { source, fields });
   // admin.firestore.Timestamp.now().seconds
   // admin.firestore.FieldValue.serverTimestamp()
-  // console.log(`updated at: ${admin.firestore.Timestamp.fromDate(moment(project.updated_at).toDate())}`);
 
   const payload = {};
   Object.keys(fields).forEach((key) => {
@@ -17,14 +16,22 @@ const saveData = (collectionName, source, fields) => {
     payload[key] = getFieldContent(value, source);
   });
   if (source.created_at) {
-    try {
-      payload._createdAt = admin.firestore.Timestamp.fromDate(moment(source.created_at).toDate());
-    } catch (e) {
-      console.error(`Cannot convert ${collectionName} 'created_at' field from 'source.created_at'`, e);
-    }
+    payload._createdAt = convertDate(collectionName, source.created_at, source.id);
+  }
+  if (source.updated_at) {
+    payload._updatedAtNative = convertDate(collectionName, source.updated_at, source.id);
   }
 
-  return Firestore.createDocument(collectionName, payload);
+  return Firestore.createDocument(collectionName, payload, null, true);
+};
+
+const convertDate = (collectionName, date, id) => {
+  try {
+    return admin.firestore.Timestamp.fromDate(moment(date).toDate());
+  } catch (e) {
+    console.error(`Cannot convert date for ${collectionName} (ID: ${id}) field from '${date}'`, e);
+    return null;
+  }
 };
 
 const saveDataSchema = Joi.object({
