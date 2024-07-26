@@ -10,6 +10,11 @@ const createRelations = async (projects, employees, teams) => {
   console.log(`Employees: ${employees.length}`);
   console.log(`Teams: ${teams.length}`);
 
+  await createRelationsBetweenProjectsAndTeams(projects, teams);
+  await createRelationsBetweenTeamsAndEmployees(teams, employees);
+};
+
+const createRelationsBetweenProjectsAndTeams = async (projects, teams) => {
   await Promise.allSettled(projects
     .filter((project) => project.name && !project.teamId)
     .map((project) => {
@@ -27,7 +32,40 @@ const createRelations = async (projects, employees, teams) => {
       return Firestore.updateDocumentById(COLLECTIONS.PROJECTS, project, project._id);
     })
   );
+};
 
+const createRelationsBetweenTeamsAndEmployees = async (teams, employees) => {
+  const idsCache = {};
+  employees.forEach((employee) => idsCache[employee._idNative] = employee._id);
+
+  await Promise.allSettled(teams
+    .filter((team) => team.teamLeadIdNative
+      || ( typeof team.teamMembers === 'object' && !Array.isArray(team.teamMembers) && team.teamMembers !== null))
+    .map((team) => {
+      let toUpdate = false;
+
+      const teamLead = idsCache[team.teamLeadIdNative];
+      if (teamLead) {
+        team.teamLeadId = teamLead;
+        toUpdate = true;
+      }
+
+      const teamMembers = team.teamMembers;
+      for (const teamMember in teamMembers) {
+        const employee = idsCache[teamMember];
+        if (employee) {
+          teamMembers[teamMember] = employee;
+          toUpdate = true;
+        }
+      }
+
+      if (toUpdate) {
+        return Firestore.updateDocumentById(COLLECTIONS.TEAMS, team, team._id);
+      }
+
+      return null;
+    })
+  );
 };
 
 const createRelationsSchema = Joi.object({
